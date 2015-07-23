@@ -3,14 +3,14 @@
 
 /**
  * @ngdoc overview
- * @name garageApp
+ * @name cubesApp
  * @description
- * # garageApp
+ * # cubesApp
  *
  * Main module of the application.
  */
 angular
-  .module('garageApp', [
+  .module('cubesApp', [
     'ngRoute',
     'ui.bootstrap'
   ])
@@ -19,7 +19,7 @@ angular
       .when('/', {
         templateUrl: 'views/main.html',
         controller: 'MainCtrl',
-        controllerAs: 'vl'
+        controllerAs: 'cl'
       })
       .otherwise({
         redirectTo: '/'

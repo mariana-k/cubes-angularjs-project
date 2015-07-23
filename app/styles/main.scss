@@ -1,12 +1,50 @@
-/**********************************
-General styles
+/***********************************
+ 1. Styles Reset
 ***********************************/
-body {
+html, body {
+  height: 100%;
   padding: 0;
-  width: 1000px;
-  margin: 0 auto;
+  margin: 0;
+  border: 0;
+}
+* {
+  margin: 0;
+  padding: 0;
+}
+.clearfix:after {
+  clear: both;
+  content: ' ';
+  display: block;
+  font-size: 0;
+  line-height: 0;
+  visibility: hidden;
+  width: 0;
+  height: 0
+}
+.clearfix {
+  display: inline-block;
+}
+.clearfix {
+  display: block;
+}
+* html .clearfix {
+  height: 1px;
+}
+input:-moz-focus-inner {
+  border: 0;
+  padding: 0;
+}
+body:before {
+  content: "";
+  height: 100%;
+  float: left;
+  width: 0;
+  margin-top: -32767px;
 }
 
+/**********************************
+2. General styles
+***********************************/
 * {
   font-family: Arial, serif;
   color: #363534;
@@ -28,8 +66,10 @@ input[type="text"] {
   background: #fff1e7;
   border: none;
   height: 25px;
-  width: 250px;
+  width: 248px;
   padding: 0 10px;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
 }
 
 button {
@@ -46,91 +86,33 @@ button {
 #header {
   border-top: 10px solid #363534;
   border-bottom: 1px solid #ededed;
-}
 
-#content {
-  padding: 20px 0;
-}
-
-#sidebar {
-  float: left;
-  width: 350px;
-
-  h4 {
-    margin: 40px 0 0px;
+  h1 {
+    padding: 15px 0;
   }
-}
-
-#main {
-  float: right;
-  width: 650px;
 }
 
 /**********************************
 Sidebar
 ***********************************/
-input.search-field {
-  background: url("../images/icons.png") no-repeat 5px -34px #fff1e7;  
-  padding: 0 10px 0 30px;
-  width: 160px;
-}
-
-.filters-block {
-  padding: 0 0 20px;
-
-  li {
-    label {
-      color: #9b4a0f;
-      cursor: pointer;
-    }
-  }
-}
-
-.filter-checkbox {
-  -webkit-appearance: none;
-  -moz-appearance:    none;
-  appearance:         none;
-  position: relative;
-  padding: 0 0 0 10px;
-  cursor: pointer;
-}
-
-.filter-checkbox:focus {
-  outline: none;
-}
-
-.filter-checkbox:before {
-  content: " ";
-  width: 10px;
-  height: 10px;
-  border: 1px solid #9b4a0f;
-  border-radius: 50%;
-  position: absolute;
-  left: 0;
-  top: -9px;
-}
-
-.filter-checkbox:checked:before {
-    background: #9b4a0f;  
-}
-
-.forms-block {
-  div {
-    padding: 5px 0;
-  }
-}
-
-.add-vehicle-form, .add-vehicle-form {
+.add-cube-form, .remove-cube-form {
   label {
     display: block;
     padding: 10px 0 5px;
   }
 }
 
-/**********************************
-Main content
-***********************************/
-.page-toolbar {
+.forms-block {
+  form {
+    padding: 0 0 15px;
+  }
+
+  div {
+    padding: 5px 0;
+  }
+}
+
+.list-toolbar {
   ul {
     display: inline-block;
   }
@@ -164,69 +146,198 @@ Main content
   }
 }
 
-.pager {
-  margin: 0;
-
-  li {
-    float: left;
-    margin: 3px 7px;
-    display: block;
-    width: 22px;
-    height: 20px;
-    overflow: hidden;
-    background: url("../images/icons.png") no-repeat 0 0 transparent;
-
-    &.previous {
-      background-position: 0 -15px;
-
-      &.disabled {
-        background-position: 0 3px;
-      }
-    }
-
-    &.next {
-      background-position: -34px 3px;
-
-      &.disabled {
-        background-position: -34px -15px;
-      }
-    }
-
-    &:focus {
-      outline: none;
-    }
-
-    a {
-      height: 0;
-      line-height: 0;
-      display: block;
-      overflow: hidden;
-      padding: 28px 0 0;
-    }
-  }
-}
-
-.parking-list {
+.items-list {
   clear: both;
 
   > li {
     clear: both;
     overflow: auto;
     zoom: 1;
-    padding: 10px 20px 10px 40px;
+    padding: 10px 20px 10px 15px;
     margin: 0 0 5px;
     background: #ededed;
+    cursor: pointer;
   }
 }
 
-.car-details {
-  float: left;
-  width: 50%;
+/**********************************
+Main content
+***********************************/
+#content {
+  padding: 20px 0;
 }
 
-.parking-details {
-  float: right;
-  width: 50%;
-  text-align: right;
+#main {
+  float: left;
+}
+
+.cube-wrapper {
+  -webkit-perspective: 200px;
+  -webkit-perspective-origin: 50% 30px;
+  cursor: pointer;
+}
+
+.cube {
+  position: relative;
+  margin: 0 auto;
+  height: 100px;
+  width: 100px;
+  -webkit-transition: -webkit-transform 2s linear;
+  -webkit-transform-style: preserve-3d;
+}
+
+.face {
+  position: absolute;
+  height: 100px;
+  width: 100px;
+  background-color: #444444;
+  font-size: 11px;
+  border: 1px solid blue;
+  opacity: 0.7;
+
+  h5 {
+    color: #ffffff;
+    font-size: 11px;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: auto;
+    height: 11px;
+    text-align: center;
+  }
+}
+
+.cube .one  {
+  -webkit-transform: rotateX(90deg) translateZ(50px);
+}
+
+.cube .two {
+  -webkit-transform: translateZ(50px);
+}
+
+.cube .three {
+  -webkit-transform: rotateY(90deg) translateZ(50px);
+}
+
+.cube .four {
+  -webkit-transform: rotateY(180deg) translateZ(50px);
+}
+
+.cube .five {
+  -webkit-transform: rotateY(-90deg) translateZ(50px);
+}
+
+.cube .six {
+  -webkit-transform: rotateX(-90deg) translateZ(50px) rotate(180deg);
+}
+
+.grid-div {
+    width: 150px;
+    height: 150px;
+    border: 1px solid #ededed;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    float: left;
+}
+
+.cube-wrapper.highlighted {
+    background: #ffd1e1; 
+}
+
+.cubes-container { 
+  border: 2px solid #ccc; 
+  padding: 10px; 
+}
+
+.cube-wrapper {
+  width: 150px;
+  height: 150px;
+}
+
+.cube-holder {
+  position: relative;
+  top: 12px;
+  left: -2px;
+}
+
+.container {
+    width: 320px;
+}
+
+@media screen and (min-width: 1px) {
+  .container {
+    width: 320px;
+    margin: auto;
+  }
+
+  .sidebar, .cubes-toolbar, #main {
+    float: none;
+    padding: 0 0 15px;
+  }
+
+  .sidebar {
+    width: 100%;
+
+    input[type="text"] {
+      width: 100%;
+    }
+  }
+
+  .cubes-container { 
+    height: 1350px; 
+    width: 151px;
+    margin: auto;
+  }
+}
+
+@media screen and (min-width: 480px) {
+  .container {
+    width: 480px;
+  }
+
+  .sidebar {
+    width: 248px;
+  }
+
+  .cubes-container { 
+    height: 450px; 
+    width: 450px;
+  }
+}
+
+@media screen and (min-width: 768px) {
+  .container {
+    width: 768px;
+  }
+
+  .sidebar {
+    float: left;
+  }
+
+  .cubes-toolbar {
+    float: left;
+  }
+
+  #main {
+    float: right;
+    padding: 0 15px 15px;
+  }
+}
+
+@media screen and (min-width: 1000px) {
+  .container {
+    width: 1000px;
+    margin: 0 auto;
+  }
+
+  .cubes-toolbar {
+    float: right;
+  }
+
+  #main {
+    float: left;
+  }
 }
 

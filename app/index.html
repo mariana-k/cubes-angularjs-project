@@ -14,24 +14,34 @@
     <link rel="stylesheet" href="styles/main.css">
     <!-- endbuild -->
   </head>
-  <body ng-app="garageApp">
+  <body ng-app="cubesApp">
     <!--[if lte IE 8]>
       <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
     <![endif]-->
     <header id="header">
-      <h1>Vehicles</h1>
+        <div class="container">
+            <h1>Cubes</h1>
+        </div>
     </header>
     <section id="content">
-      <div ng-view=""></div>
+        <div class="container">
+            <div ng-view=""></div>
+        </div>
     </section>
 
     <!-- build:js(.) scripts/vendor.js -->
     <!-- bower:js -->
+    <script src="bower_components/jquery/dist/jquery.js"></script>
+    <script src="bower_components/jquery-ui/jquery-ui.js"></script>
     <script src="bower_components/angular/angular.js"></script>
     <script src="bower_components/angular-route/angular-route.js"></script>
     <script src="bower_components/angular-bootstrap/ui-bootstrap-tpls.js"></script>
     <!-- endbower -->
     <!-- endbuild -->
+
+    <!-- lib -->
+    <script src="lib/jquery.ui.touch-punch.min.js"></script>
+    <!-- lib -->
 
     <!-- build:js({.tmp,app}) scripts/scripts.js -->
     <script src="scripts/app.js"></script>

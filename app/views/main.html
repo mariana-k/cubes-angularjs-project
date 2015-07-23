@@ -1,104 +1,97 @@
-<aside id="sidebar">
-  <div class="search-block">
-    <input class="search-field" type="text" data-ng-model="search.text" placeholder="Search"/>
+<aside class="sidebar cubes-list">
+  <div class="list-toolbar">
+    <h4><pre>{{cubesList.length}}</pre> <span> cubes</span></h4> 
   </div>
-  <div class="filters-block">
-    <h4>Levels</h4>
-    <ul>
-      <li>
-        <label>
-          <input class="filter-checkbox" type="checkbox" data-ng-model='filterLevel.level1' data-ng-true-value="'Level 1'" data-ng-false-value='' />
-          Level 1
-        </label>
-      </li>
-      <li>
-        <label>
-          <input class="filter-checkbox" type="checkbox" data-ng-model='filterLevel.level2' data-ng-true-value="'Level 2'" data-ng-false-value='' />
-          Level 2
-        </label>
-      </li>
-      <li>
-        <label>
-          <input class="filter-checkbox" type="checkbox" data-ng-model='filterLevel.level3' data-ng-true-value="'Level 3'" data-ng-false-value='' />
-          Level 3
-        </label>
-      </li>
-      <li>
-        <label>
-          <input class="filter-checkbox" type="checkbox" data-ng-model='filterLevel.level4' data-ng-true-value="'Level 4'" data-ng-false-value='' />
-          Level 4
-        </label>
+  <div class="list-contnet">
+    <ul class="items-list">
+      <li class="cube-item" ng-click="initHighlightCube(it.cubeid)" ng-repeat="it in filteredCubes">
+        <div class="cubeid-holder">{{it.cubeid}}</div>
       </li>
     </ul>
-    <h4>Type</h4>
-    <ul>
-      <li>
-        <label>
-          <input class="filter-checkbox" type="checkbox" data-ng-model='filterType.type1' data-ng-true-value="'Motorbike'" data-ng-false-value='' />
-          Motorbike
-        </label>
-      </li>
-      <li>
-        <label>
-          <input class="filter-checkbox" type="checkbox" data-ng-model='filterType.type2' data-ng-true-value="'Car'" data-ng-false-value='' />
-          Car
-        </label>
-      </li>
   </div>
+</aside>
+<section id="main" >
+  <div  class="cubes-container">
+    <div class="grid-div" ng-repeat="it in filteredCubes">
+      <div class="cube-wrapper {{it.cubeid}}" ng-click="initHighlightCube(it.cubeid)">
+          <div class="cube-holder">
+            <div class="cube">
+              <div class="face one"></div>
+              <div class="face two"><h5>{{it.cubeid}}</h5></div>
+              <div class="face three"></div>
+              <div class="face four"></div>
+              <div class="face five"></div>
+              <div class="face six"></div>
+            </div>
+          </div>
+      </div>
+    </div>
+    <div class="grid-div"></div>
+    <div class="grid-div"></div>
+    <div class="grid-div"></div>
+    <div class="grid-div"></div>
+    <div class="grid-div"></div>
+  </div>
+</section>
+<aside class="sidebar cubes-toolbar">
   <div class="forms-block">
-    <h4>Add Vehicle</h4>
-    <form novalidate class="add-vehicle-form" ng-submit="addVehicle()">
+    <h4>Edit Cube</h4>
+    <form novalidate class="edit-cube-form">
       <div>
-        <input id="vehicleplate" type="text" ng-model="vl.vehicleplate" placeholder="Vehicle Plate" />
+        <input class="cubeid" type="text" placeholder="Cube ID" />
       </div>
       <div>
-        <input id="vehicletype" type="text" ng-model="vl.vehicletype" placeholder="Vehicle Type" />
+        <input class="cubewidth" type="text" placeholder="Cube Width" />
       </div>
       <div>
-        <input id="parkinglevel" type="text" ng-model="vl.parkinglevel" ng-blur="updateInputValue()" placeholder="Parking Level" />
+        <input class="cubeheight" type="text" placeholder="Cube Height" />
       </div>
       <div>
-        <input id="parkingslot" type="text" ng-model="vl.parkingslot" placeholder="Parking Slot" />
+        <input class="cubecolor" type="text" placeholder="Cube Color" />
+      </div>
+      <div>
+        <input class="cubeborder" type="text" placeholder="Cube Borders Color" />
       </div>
       <div class="form-footer">
-        <button class="add-vehicle-button">Add Vehicle</button>
+        <button class="edit-cube-button" ng-click="editExistingCube()">Edit cube</button>
       </div>
     </form>
 
-    <h4>Remove Vehicle</h4>
-    <form novalidate class="add-vehicle-form" ng-submit="removeVehicle()">
+    <h4>Add Cube</h4>
+    <form novalidate class="add-cube-form" ng-submit="styleNewCube()">
       <div>
-        <input id="plate" type="text" ng-model="vl.plate" placeholder="Vehicle Plate" />
+        <input id="cubeid" class="cubeid" type="text" placeholder="Cube ID" />
+      </div>
+      <div>
+        <input id="cubewidth" class="cubewidth" type="text" placeholder="Cube Width" />
+      </div>
+      <div>
+        <input id="cubeheight" class="cubeheight" type="text" placeholder="Cube Height" />
+      </div>
+      <div>
+        <input id="cubecolor" class="cubecolor" type="text" placeholder="Cube Color" />
+      </div>
+      <div>
+        <input id="cubeborder" class="cubeborder" type="text" placeholder="Cube Borders Color" />
       </div>
       <div class="form-footer">
-        <button class="add-vehicle-button">Remove Vehicle</button>
+        <button class="add-cube-button" ng-click="addCube()">Add cube</button>
+      </div>
+    </form>
+
+    <h4>Remove Cube</h4>
+    <form novalidate class="remove-cube-form">
+      <div>
+        <input class="cubeid" type="text" placeholder="Cube ID" ng-model="cl.cubeid" />
+      </div>
+      <div class="form-footer">
+        <button class="remove-cube-button" ng-click="removeCube()">Remove Cube</button>
       </div>
     </form>
   </div>
 </aside>
-<section id="main">
-  <div class="page-toolbar">
-    <ul><li>{{currentPage}}</li><li>{{filteredVehicles.length}}</li></ul>
-    <span>/</span>
-    <h4><pre>{{vehiclesList.length}}</pre> <span> vehicles</span></h4>
-    <pager
-      ng-model="currentPage"
-      total-items="vehiclesList.length"
-      boundary-links="false">
-    </pager> 
-  </div>
-  <div class="page-contnet">
-  <ul class="parking-list">
-    <li class="vehicle-item" ng-repeat="it in filteredVehicles | filter:filterLevel.level1 | filter:filterLevel.level2 | filter:filterLevel.level3 | filter:filterLevel.level4 | filter:search.text | filter:filterType.type1 | filter:filterType.type2">
-      <ul class="car-details">
-        <li>{{it.plate}}</li>
-        <li>{{it.type}}</li>
-      </ul>
-      <ul class="parking-details">
-        <li>{{it.level}}</li>
-        <li>Slot {{it.slot}}</li>
-      </ul>
-    </li>
-  </ul>
-  </div>
-</section>
+
+
+  
+  
+  
